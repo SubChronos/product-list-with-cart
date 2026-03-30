@@ -1,0 +1,25 @@
+---
+import type { Product } from "../lib/types"
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+});
+
+interface Props {
+    product: Product
+}
+const { product } = Astro.props
+---
+
+<article class="flex flex-col">
+    <img src={product.image.desktop} class="rounded-lg">
+    <button class="-mt-6 mb-3 bg-white border border-zinc-300 rounded-full w-2/3 mx-auto py-3 font-medium flex justify-center gap-2 hover:-translate-y-2 hover:bg-zinc-100 transition-all">
+        <img src="/assets/icon-add-to-cart.svg">
+        Add to cart
+    </button>
+    <div class="flex flex-col mb-3">
+        <span class="text-zinc-500">{product.category}</span>
+        <h2 class="text-lg font-medium">{product.name}</h2>
+        <span class="text-fm-red font-medium">{formatter.format(product.price)}</span>
+    </div>
+</article>

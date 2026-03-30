@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Red Hat Text';
+  src: url('/fonts/RedHatText-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700; /* Al ser variable, soporta un rango de pesos */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Configuramos el tema para Tailwind v4 */
+@theme {
+  /* Fuentes */
+  --font-redhat: 'Red Hat Text', sans-serif;
+
+  /* Colores principales */
+  --color-fm-red: hsl(14, 86%, 42%);
+  --color-fm-green: hsl(159, 69%, 38%);
+
+  /* Escala de colores Rose */
+  --color-fm-rose-50: hsl(20, 50%, 98%);
+  --color-fm-rose-100: hsl(13, 31%, 94%);
+  --color-fm-rose-300: hsl(14, 25%, 72%);
+  --color-fm-rose-400: hsl(7, 20%, 60%);
+  --color-fm-rose-500: hsl(12, 20%, 44%);
+  --color-fm-rose-900: hsl(14, 65%, 9%);
+}
+
+/* 3. Estilos base opcionales */
+@layer base {
+  body {
+    font-family: var(--font-redhat);
+    background-color: var(--color-fm-rose-50);
+  }
+}

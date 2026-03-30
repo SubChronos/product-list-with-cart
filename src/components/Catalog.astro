@@ -1,0 +1,25 @@
+---
+import CatalogCard from "./CatalogCard.astro"
+import type { Product } from "../lib/types"
+
+
+let apiUrl = `${Astro.url.origin}/api/products`;
+const productosAPI = await fetch(apiUrl)
+
+const productos = await productosAPI.json() as Product[];
+console.log(productos)
+
+---
+
+<section class="w-full sm:w-2/3 flex flex-col gap-10">
+    <h1 class="font-bold text-4xl">Desserts</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {
+            productos.map(producto => {
+                return (
+                    <CatalogCard product={producto} />
+                )
+            })
+        }
+    </div>
+</section>
