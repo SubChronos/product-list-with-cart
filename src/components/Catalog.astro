@@ -2,13 +2,12 @@
 import CatalogCard from "./CatalogCard.astro"
 import type { Product } from "../lib/types"
 
+//let apiUrl = `${Astro.url.origin}/api/products?q=${encodeURIComponent("Vanilla Bean Crème Brûlée")}`;
 
 let apiUrl = `${Astro.url.origin}/api/products`;
 const productosAPI = await fetch(apiUrl)
 
 const productos = await productosAPI.json() as Product[];
-console.log(productos)
-
 ---
 
 <section class="w-full sm:w-2/3 flex flex-col gap-10">

@@ -4,5 +4,55 @@ import EmptyCart from "./EmptyCart.astro";
 
 <section class="w-full sm:w-1/3 h-fit bg-white rounded-xl p-5 flex flex-col justify-center sticky"> 
     <h2 class="text-fm-red text-2xl font-bold">Your Cart (0)</h2>
-    <EmptyCart />
+    <div id="cartContainer" />
+    <div id="cartEmpty">
+        <EmptyCart />
+    </div>
 </section>
+
+<script>
+    const datosGuardados = localStorage.getItem("carritoGuardado");
+    let carrito:string[]
+    if (datosGuardados) {
+        carrito = JSON.parse(datosGuardados);
+    } else {
+        carrito = []
+    }
+
+    const botones = document.querySelectorAll(".addProductButton")
+    botones.forEach(boton => {
+        boton.addEventListener("click", (event) => {
+            const boton = event.target as HTMLButtonElement
+            if (boton.dataset.productId)  {
+                carrito.push(boton.dataset.productId)
+            }
+            localStorage.setItem("carritoGuardado", JSON.stringify(carrito));
+            renderCart() // Renderiza el carrito despues de actualizar
+        })
+    })
+
+    function renderCart() { // Funcion para renderizar el video
+        const cartContainer = document.getElementById("cartContainer") as HTMLDivElement
+        const cartEmpty = document.getElementById("cartEmpty") as HTMLDivElement
+        if (carrito[0]) {
+            cartEmpty.style.display = "none"
+            cartContainer.style.display = "block"
+
+            cartContainer.innerHTML = ""
+            carrito.forEach(product => {
+                const newDiv = document.createElement("div");
+                const newTitle = document.createElement("h2");
+                newTitle.textContent = product
+
+                newDiv.appendChild(newTitle)
+                
+                cartContainer.appendChild(newDiv)
+            });
+        } else {
+            cartEmpty.style.display = "block"
+            cartContainer.style.display = "none"
+        }
+    }
+    renderCart() // Renderiza el carrtio al principio
+
+</script>
